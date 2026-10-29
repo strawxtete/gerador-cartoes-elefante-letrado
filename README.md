@@ -61,12 +61,28 @@ http://localhost:8501
 
 ---
 
-## Estrutura de Arquivos
+## Estrutura do Projeto
 
-- `app.py` — Código principal da aplicação Streamlit e lógica de geração dos cartões e PDFs.
-- `cartao_modelo.png` — Imagem base do cartão de acesso.
-- `logo_elefante_letrado.png` — Logotipo exibido no topo da página.
-- `icone_elefante_letrado.png` — Ícone da aba do navegador (favicon).
-- `Oswald-Regular.ttf` — Fonte tipográfica utilizada para preencher Login e Senha no cartão.
-- `requirements.txt` — Lista de bibliotecas Python necessárias para execução.
-- `.streamlit/config.toml` — Configurações de tema e limite de upload do Streamlit.
+```text
+elefante-letrado/
+├── .streamlit/
+│   └── config.toml             # Configurações do Streamlit (tema, uploads)
+├── assets/
+│   ├── fonts/
+│   │   └── Oswald-Regular.ttf  # Fonte tipográfica utilizada nos cartões
+│   └── images/
+│       ├── cartao_modelo.png   # Imagem base do cartão de acesso
+│       ├── icone_elefante_letrado.png  # Favicon do app
+│       └── logo_elefante_letrado.png   # Logo do topo da interface
+├── src/
+│   ├── __init__.py
+│   ├── config.py               # Constantes de layout, cores e caminhos
+│   ├── extractor.py            # Extração de turmas e alunos via PDF
+│   ├── card_generator.py       # Renderização gráfica dos cartões com Pillow
+│   ├── pdf_builder.py          # Montagem do PDF para impressão A4
+│   └── ui.py                   # Interface gráfica, componentes e estilos
+├── app.py                      # Ponto de entrada da aplicação
+├── requirements.txt            # Dependências do projeto
+├── README.md                   # Documentação do projeto
+└── .gitignore                  # Arquivos ignorados pelo Git
+```
