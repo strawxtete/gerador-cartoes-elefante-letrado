@@ -125,6 +125,8 @@ header[data-testid="stHeader"],
     max-width: 720px;
     padding-top: 1.5rem;
     padding-bottom: 6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     text-align: center;
 }}
 [data-testid="stMarkdownContainer"],
@@ -231,6 +233,9 @@ h1 a, h2 a, h3 a {{
     border: 1px solid {borda_suave} !important;
     border-radius: 0.5rem !important;
     padding: 0.25rem 0.6rem !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    word-break: break-all !important;
 }}
 [data-testid="stFileUploaderFile"] span,
 [data-testid="stFileUploaderFile"] small {{
@@ -290,6 +295,7 @@ div[data-testid="stButton"] > button[kind="secondary"] {{
     height: 2.1rem !important;
     padding: 0.25rem 0.85rem !important;
     border-radius: 0.45rem !important;
+    min-width: 105px !important;
     transition: all 0.15s ease;
 }}
 div[data-testid="stButton"] > button[kind="secondary"]:hover {{
@@ -356,6 +362,124 @@ div[data-testid="stDownloadButton"] button p {{
     font-size: 0.82rem;
     z-index: 999;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}}
+
+[data-testid="stHorizontalBlock"]:has(button[kind="secondary"]) {{
+    align-items: center !important;
+    margin-bottom: 0.5rem !important;
+}}
+
+@media (max-width: 640px) {{
+    .block-container {{
+        padding-top: 0.75rem !important;
+        padding-bottom: 5.5rem !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }}
+    .logo-wrap img {{
+        max-width: 220px !important;
+    }}
+    [data-testid="stHeading"] h1,
+    [data-testid="stHeading"] h2,
+    [data-testid="stHeading"] h3 {{
+        font-size: 1.15rem !important;
+    }}
+    [data-baseweb="tab-list"] {{
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }}
+    button[data-baseweb="tab"] {{
+        padding: 0.5rem 0.6rem !important;
+        flex: 1 1 auto !important;
+    }}
+    button[data-baseweb="tab"] p {{
+        font-size: 0.84rem !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) {{
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) > [data-testid="column"] {{
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has([data-testid="stButton"] button[kind="primary"]),
+    [data-testid="stHorizontalBlock"]:has([data-testid="stDownloadButton"] button) {{
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        gap: 0 !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has([data-testid="stButton"] button[kind="primary"]) > [data-testid="column"]:first-child,
+    [data-testid="stHorizontalBlock"]:has([data-testid="stButton"] button[kind="primary"]) > [data-testid="column"]:last-child,
+    [data-testid="stHorizontalBlock"]:has([data-testid="stDownloadButton"] button) > [data-testid="column"]:first-child,
+    [data-testid="stHorizontalBlock"]:has([data-testid="stDownloadButton"] button) > [data-testid="column"]:last-child {{
+        display: none !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has([data-testid="stButton"] button[kind="primary"]) > [data-testid="column"],
+    [data-testid="stHorizontalBlock"]:has([data-testid="stDownloadButton"] button) > [data-testid="column"] {{
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+    }}
+    div[data-testid="stButton"] > button[kind="primary"],
+    div[data-testid="stDownloadButton"] > button {{
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 2.85rem !important;
+        height: auto !important;
+        padding: 0.65rem 1rem !important;
+    }}
+    div[data-testid="stButton"] > button[kind="primary"] p,
+    div[data-testid="stDownloadButton"] button p {{
+        font-size: 0.95rem !important;
+        white-space: normal !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has(button[kind="secondary"]) {{
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        margin-bottom: 0.5rem !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has(button[kind="secondary"]) > [data-testid="column"]:first-child {{
+        display: none !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has(button[kind="secondary"]) > [data-testid="column"]:last-child {{
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has(button[kind="secondary"]) div[data-testid="stButton"] {{
+        width: auto !important;
+    }}
+    [data-testid="stHorizontalBlock"]:has(button[kind="secondary"]) button[kind="secondary"] {{
+        width: auto !important;
+        min-width: 110px !important;
+    }}
+    [data-testid="stFileUploaderDropzone"] {{
+        padding: 0.75rem 0.5rem !important;
+    }}
+    [data-testid="stFileUploaderDropzoneInstructions"] span::after {{
+        content: "Toque para selecionar o PDF (máx. 20MB)" !important;
+        font-size: 0.82rem !important;
+    }}
+    .resumo-badge {{
+        font-size: 0.78rem !important;
+        padding: 0.3rem 0.7rem !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+    }}
+    .aviso-lgpd {{
+        bottom: 0.5rem !important;
+        width: 95vw !important;
+        padding: 0.4rem 0.6rem !important;
+        font-size: 0.72rem !important;
+        line-height: 1.25 !important;
+    }}
 }}
 </style>
 """
