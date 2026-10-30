@@ -9,6 +9,7 @@ Aplicação web desenvolvida em Python com **Streamlit** para automatizar a cria
 - **Geração em lote via PDF**: Lê automaticamente o arquivo PDF *Relação de Usuários da Escola*, extrai o nome da turma, os nomes dos alunos e os códigos das carteirinhas, permite revisar/editar a tabela na tela e gera um único PDF para impressão nomeado com a turma.
 - **Geração individual (Manual)**: Permite preencher o nome e a carteirinha de um único aluno e exportar o cartão em PDF com o nome do estudante.
 - **Modo Escuro e Modo Claro**: Alternância direta de tema no canto superior direito da tela (iniciando por padrão no Modo Escuro).
+- **Design 100% Responsivo**: Interface adaptada para uso tanto no computador quanto no celular (smartphones e tablets), com botões e campos otimizados para toque.
 - **Privacidade e LGPD**: Todo o processamento dos arquivos e imagens ocorre 100% em memória (`io.BytesIO`), sem salvar dados de alunos no disco ou servidor.
 
 ---
