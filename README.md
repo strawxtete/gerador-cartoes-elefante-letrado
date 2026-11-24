@@ -1,26 +1,30 @@
 # Elefante Letrado - Gerador de Cartões de Acesso
 
-Aplicação web desenvolvida em Python com **Streamlit** para automatizar a criação de cartões de acesso (Login e Senha) dos alunos na plataforma **Elefante Letrado**, prontos para impressão em folhas A4 (grade 2x3).
+Aplicação web desenvolvida com **FastAPI (Python)** e interface **Web Responsiva (HTML/CSS/JS)** para automatizar a criação de cartões de acesso (Login e Senha) dos alunos na plataforma **Elefante Letrado**, prontos para impressão em folhas A4 (grade 2x3) e preparada para hospedagem gratuita na **Vercel**.
 
 ---
 
 ## Funcionalidades
 
-- **Geração em lote via PDF**: Lê automaticamente o arquivo PDF *Relação de Usuários da Escola*, extrai o nome da turma, os nomes dos alunos e os códigos das carteirinhas, permite revisar/editar a tabela na tela e gera um único PDF para impressão nomeado com a turma.
+- **Geração em lote via PDF**: Lê automaticamente o arquivo PDF *Relação de Usuários da Escola*, extrai o nome da turma, os nomes dos alunos e os códigos das carteirinhas, permite revisar/editar a tabela na tela e gera um único PDF para impressão nomeado com a turma (ex.: `1 ANO A.pdf`).
 - **Geração individual (Manual)**: Permite preencher o nome e a carteirinha de um único aluno e exportar o cartão em PDF com o nome do estudante.
+- **Carregamento Instantâneo e Zero Marca d'Água**: Interface estática servida diretamente via CDN com API Serverless em Python.
 - **Modo Escuro e Modo Claro**: Alternância direta de tema no canto superior direito da tela (iniciando por padrão no Modo Escuro).
-- **Design 100% Responsivo**: Interface adaptada para uso tanto no computador quanto no celular (smartphones e tablets), com botões e campos otimizados para toque.
+- **Design 100% Responsivo**: Interface adaptada para uso tanto no computador quanto no celular (smartphones e tablets).
 - **Privacidade e LGPD**: Todo o processamento dos arquivos e imagens ocorre 100% em memória (`io.BytesIO`), sem salvar dados de alunos no disco ou servidor.
 
 ---
 
-## Pré-requisitos
+## Como Hospedar Gratuitamente na Vercel
 
-- **Python 3.10** ou superior instalado.
+1. Acesse [vercel.com](https://vercel.com/) e faça login com sua conta do **GitHub**.
+2. Clique em **Add New...** -> **Project**.
+3. Selecione o repositório **`gerador-cartoes-elefante-letrado`** e clique em **Import**.
+4. Não é necessário alterar nenhuma configuração (o arquivo `vercel.json` já configura tudo automaticamente). Basta clicar em **Deploy**.
 
 ---
 
-## Como Executar o Projeto
+## Como Executar Localmente
 
 ### 1. Clonar o repositório
 
@@ -52,12 +56,10 @@ pip install -r requirements.txt
 ### 4. Iniciar a aplicação
 
 ```bash
-streamlit run app.py
+python app.py
 ```
 
-O sistema abrirá automaticamente no navegador no endereço:
+Acesse no navegador:
 ```text
-http://localhost:8501
-```
-└── .gitignore                  # Arquivos ignorados pelo Git
+http://127.0.0.1:8000
 ```

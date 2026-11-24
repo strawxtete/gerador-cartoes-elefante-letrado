@@ -1,7 +1,6 @@
 import io
 from typing import List, Tuple
 
-import streamlit as st
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
@@ -57,11 +56,5 @@ def montar_pdf(cartoes: List[io.BytesIO]) -> bytes:
 def gerar_pdf_dos_alunos(pares: List[Tuple[str, str]]) -> bytes:
     modelo = carregar_modelo_bytes()
     lay = layout_atual()
-    barra = st.progress(0.0, text="Gerando cartões...")
-    cartoes = []
-    for idx, (nome, senha) in enumerate(pares, start=1):
-        cartoes.append(gerar_cartao(nome, senha, modelo, lay))
-        barra.progress(idx / len(pares), text=f"Gerando cartões... {idx}/{len(pares)}")
-    pdf = montar_pdf(cartoes)
-    barra.empty()
-    return pdf
+    cartoes = [gerar_cartao(nome, senha, modelo, lay) for nome, senha in pares]
+    return montar_pdf(cartoes)

@@ -1,8 +1,8 @@
 import io
+from functools import lru_cache
 from typing import Dict, Optional
 
 import numpy as np
-import streamlit as st
 from PIL import Image, ImageDraw, ImageFont
 
 from src.config import (
@@ -44,7 +44,7 @@ def ajustar_fonte(
     return carregar_fonte(tamanho)
 
 
-@st.cache_resource(show_spinner=False)
+@lru_cache(maxsize=1)
 def carregar_modelo_bytes() -> bytes:
     with open(CARD_TEMPLATE_PATH, "rb") as f:
         return f.read()
@@ -61,12 +61,11 @@ def apagar_texto_antigo(img: Image.Image, k: float) -> None:
 
 
 def layout_atual() -> Dict[str, int]:
-    ss = st.session_state
     return {
-        "x": ss.get("lay_x", TEXT_X),
-        "y_login": ss.get("lay_y_login", LOGIN_Y),
-        "y_senha": ss.get("lay_y_senha", SENHA_Y),
-        "tamanho": ss.get("lay_tamanho", FONT_SIZE),
+        "x": TEXT_X,
+        "y_login": LOGIN_Y,
+        "y_senha": SENHA_Y,
+        "tamanho": FONT_SIZE,
     }
 
 

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elefante Letrado - Cartões</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="tema-escuro">
+    <main class="block-container">
+        <div class="barra-topo">
+            <button type="button" id="btn-tema" class="btn-secundario">Modo Claro</button>
+        </div>
+
+        <div class="logo-wrap">
+            <img src="/logo.png" alt="Elefante Letrado" class="logo-img">
+        </div>
+
+        <h2 class="titulo-principal">Gerador de Cartões de Acesso</h2>
+
+        <div class="abas-lista" role="tablist">
+            <button type="button" class="aba-btn ativa" data-aba="aba-pdf" role="tab" aria-selected="true">
+                Enviar lista (PDF)
+            </button>
+            <button type="button" class="aba-btn" data-aba="aba-manual" role="tab" aria-selected="false">
+                Preencher manualmente
+            </button>
+        </div>
+
+        <section id="aba-pdf" class="aba-conteudo ativa">
+            <p class="descricao">Envie o PDF <strong>Relação de Usuários da Escola</strong> com a lista de alunos da turma.</p>
+
+            <div id="dropzone" class="dropzone">
+                <input type="file" id="input-pdf" accept="application/pdf,.pdf" hidden>
+                <div class="dropzone-conteudo" id="dropzone-padrao">
+                    <button type="button" id="btn-procurar" class="btn-procurar">Procurar PDF</button>
+                    <span class="dropzone-instrucao texto-desktop">Arraste e solte o arquivo PDF aqui (máx. 20MB)</span>
+                    <span class="dropzone-instrucao texto-mobile">Toque para selecionar o PDF (máx. 20MB)</span>
+                </div>
+                <div class="dropzone-arrastando" id="dropzone-overlay">
+                    <span>Solte o arquivo PDF aqui</span>
+                </div>
+            </div>
+
+            <div id="arquivo-selecionado" class="arquivo-box oculto">
+                <div class="arquivo-info">
+                    <span id="arquivo-nome" class="arquivo-nome"></span>
+                    <small id="arquivo-tamanho" class="arquivo-tamanho"></small>
+                </div>
+                <button type="button" id="btn-remover-arquivo" class="btn-texto-remover">Remover</button>
+            </div>
+
+            <div id="alerta-pdf" class="alerta oculto"></div>
+            <div id="aviso-pdf" class="alerta alerta-aviso oculto"></div>
+
+            <div id="secao-tabela" class="secao-tabela oculto">
+                <p class="legenda">Confira os dados. Você pode corrigir nomes cortados pelo PDF, ou adicionar/remover linhas.</p>
+                <div class="tabela-container">
+                    <table class="tabela-alunos">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Senha (carteirinha)</th>
+                                <th class="col-acao">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-alunos"></tbody>
+                    </table>
+                </div>
+                <div class="tabela-acoes">
+                    <button type="button" id="btn-adicionar-linha" class="btn-secundario">Adicionar aluno</button>
+                </div>
+            </div>
+
+            <div class="area-botao-central">
+                <button type="button" id="btn-gerar-lote" class="btn-primario" disabled>Gerar Cartões</button>
+            </div>
+
+            <div id="progresso-lote" class="progresso-wrap oculto">
+                <p id="progresso-lote-texto" class="progresso-texto">Gerando cartões...</p>
+                <div class="progresso-barra">
+                    <div id="progresso-lote-preenchimento" class="progresso-preenchimento"></div>
+                </div>
+            </div>
+
+            <div id="resultado-lote" class="resultado-wrap oculto">
+                <div>
+                    <span id="badge-lote" class="resumo-badge"></span>
+                </div>
+                <div class="area-botao-central">
+                    <a id="btn-baixar-lote" class="btn-download" href="#" download>Baixar PDF dos Cartões</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="aba-manual" class="aba-conteudo">
+            <p class="descricao">Preencha os dados para gerar o cartão de <strong>um</strong> aluno.</p>
+
+            <div class="grade-campos">
+                <div class="campo-grupo">
+                    <label for="manual-nome">Nome do aluno</label>
+                    <input type="text" id="manual-nome" placeholder="Digite o nome completo do aluno" autocomplete="off">
+                </div>
+                <div class="campo-grupo">
+                    <label for="manual-senha">Senha (carteirinha)</label>
+                    <input type="text" id="manual-senha" placeholder="Digite o código da carteirinha" autocomplete="off">
+                </div>
+            </div>
+
+            <div id="alerta-manual" class="alerta alerta-erro oculto"></div>
+
+            <div class="area-botao-central">
+                <button type="button" id="btn-gerar-manual" class="btn-primario">Gerar Cartão</button>
+            </div>
+
+            <div id="progresso-manual" class="progresso-wrap oculto">
+                <p class="progresso-texto">Gerando cartão...</p>
+                <div class="progresso-barra">
+                    <div id="progresso-manual-preenchimento" class="progresso-preenchimento"></div>
+                </div>
+            </div>
+
+            <div id="resultado-manual" class="resultado-wrap oculto">
+                <div>
+                    <span id="badge-manual" class="resumo-badge"></span>
+                </div>
+                <div class="area-botao-central">
+                    <a id="btn-baixar-manual" class="btn-download" href="#" download>Baixar PDF do Cartão</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="aviso-lgpd">
+        <b>Privacidade (LGPD):</b> os arquivos são processados apenas na memória e <b>não são salvos</b> no servidor.
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
