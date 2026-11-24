@@ -1,21 +1,18 @@
 import re
-from pathlib import Path
 from typing import List
 from urllib.parse import quote
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse, Response
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from src.config import GRID_COLS, GRID_ROWS
+from src.config import ASSETS_DIR, GRID_COLS, GRID_ROWS
 from src.extractor import extrair_alunos
 from src.pdf_builder import gerar_pdf_dos_alunos
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-PUBLIC_DIR = BASE_DIR / "public"
+WEB_DIR = ASSETS_DIR / "web"
 
 
 class AlunoItem(BaseModel):
@@ -32,6 +29,31 @@ def limpar_nome_arquivo(texto: str, padrao: str = "cartoes") -> str:
     limpo = re.sub(r'[\\/*?:"<>|]+', "", texto.strip())
     limpo = " ".join(limpo.split())
     return limpo or padrao
+
+
+@app.get("/")
+async def servir_index():
+    return FileResponse(WEB_DIR / "index.html", media_type="text/html")
+
+
+@app.get("/style.css")
+async def servir_css():
+    return FileResponse(WEB_DIR / "style.css", media_type="text/css")
+
+
+@app.get("/script.js")
+async def servir_js():
+    return FileResponse(WEB_DIR / "script.js", media_type="application/javascript")
+
+
+@app.get("/logo.png")
+async def servir_logo():
+    return FileResponse(WEB_DIR / "logo.png", media_type="image/png")
+
+
+@app.get("/favicon.png")
+async def servir_favicon():
+    return FileResponse(WEB_DIR / "favicon.png", media_type="image/png")
 
 
 @app.post("/api/extrair")
@@ -87,11 +109,3 @@ async def api_gerar_pdf(dados: GerarPdfRequest):
             "X-Nome-Arquivo": quote(f"{nome_limpo}.pdf"),
         },
     )
-
-
-if PUBLIC_DIR.exists():
-    @app.get("/")
-    async def servir_index():
-        return FileResponse(PUBLIC_DIR / "index.html")
-
-    app.mount("/", StaticFiles(directory=str(PUBLIC_DIR), html=True), name="public")
