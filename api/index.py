@@ -1,6 +1,6 @@
 import re
 from typing import List
-from urllib.parse import quote
+from urllib.parse import parse_qs, quote
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse, Response
@@ -13,6 +13,28 @@ from src.pdf_builder import gerar_pdf_dos_alunos
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
 WEB_DIR = ASSETS_DIR / "web"
+
+
+class VercelPathMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] == "http":
+            qs = parse_qs(scope.get("query_string", b"").decode("utf-8"))
+            if "__path" in qs and qs["__path"]:
+                caminho = qs["__path"][0]
+                if not caminho.startswith("/"):
+                    caminho = "/" + caminho
+                scope["path"] = caminho
+                scope["raw_path"] = caminho.encode("utf-8")
+            elif scope.get("path") in ("/api/index.py", "/api/index", ""):
+                scope["path"] = "/"
+                scope["raw_path"] = b"/"
+        await self.app(scope, receive, send)
+
+
+app.add_middleware(VercelPathMiddleware)
 
 
 class AlunoItem(BaseModel):
